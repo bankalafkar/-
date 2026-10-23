@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
@@ -28,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* ================= الهيدر ================= */
         .hero-header {
             background: var(--gradient-blue);
             padding: 6rem 1rem 8rem;
@@ -39,7 +37,6 @@
             overflow: hidden;
         }
         
-        /* حاوية الإيموجيات المتحركة */
         .floating-emojis {
             position: absolute;
             top: 0;
@@ -101,7 +98,6 @@
             opacity: 0.9;
         }
 
-        /* حاوية الأزرار العلوية */
         .header-actions-container {
             position: absolute;
             top: 20px;
@@ -133,16 +129,9 @@
             transform: translateY(-2px);
         }
 
-        .admin-info-badge {
-            display: none;
-        }
+        .admin-info-badge { display: none; }
+        .admin-info-badge.active { display: flex; }
 
-        .admin-info-badge.active {
-            display: flex;
-        }
-        /* ============================================== */
-
-        /* شريط التحكم */
         .toolbar-container {
             margin-top: -4rem;
             position: relative;
@@ -212,24 +201,11 @@
             font-size: 0.95rem;
         }
 
-        .btn-suggest {
-            background-color: #f59e0b;
-            color: white;
-        }
+        .btn-suggest { background-color: #f59e0b; color: white; }
+        .btn-suggest:hover { background-color: #d97706; color: white; }
 
-        .btn-suggest:hover {
-            background-color: #d97706;
-            color: white;
-        }
-
-        .btn-admin {
-            background-color: #e2e8f0;
-            color: var(--text-dark);
-        }
-
-        .btn-admin:hover {
-            background-color: #cbd5e1;
-        }
+        .btn-admin { background-color: #e2e8f0; color: var(--text-dark); }
+        .btn-admin:hover { background-color: #cbd5e1; }
 
         .admin-badge {
             display: none;
@@ -242,12 +218,9 @@
             gap: 0.5rem;
             font-size: 0.9rem;
         }
+        .admin-badge.active { display: flex; }
+        .admin-badge .fa-crown { color: #fde68a; }
 
-        .admin-badge.active {
-            display: flex;
-        }
-
-        /* تبويبات الفلترة */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -284,7 +257,6 @@
             box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
         }
 
-        /* زر التحديث الأخضر */
         .refresh-pill {
             background: #f0fdf4;
             color: #16a34a;
@@ -301,7 +273,6 @@
             transform: none;
         }
 
-        /* البطاقات */
         .idea-card {
             background: white;
             border-radius: 20px;
@@ -333,7 +304,6 @@
         .banner-culture { background: linear-gradient(135deg, #bae6fd, #7dd3fc); }
         .banner-creative { background: linear-gradient(135deg, #fde68a, #fcd34d); }
 
-        /* زر المفضلة (النجمة) */
         .star-btn {
             position: absolute;
             top: 15px;
@@ -354,14 +324,8 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .star-btn:hover {
-            transform: scale(1.1);
-            color: #f59e0b;
-        }
-
-        .star-btn.active {
-            color: #f59e0b;
-        }
+        .star-btn:hover { transform: scale(1.1); color: #f59e0b; }
+        .star-btn.active { color: #f59e0b; }
 
         .card-content {
             padding: 1.5rem;
@@ -411,9 +375,7 @@
         .badge-creative { background: #fef3c7; color: #b45309; }
         .badge-time { background: #f1f5f9; color: #475569; }
 
-        .tools-section {
-            margin-bottom: 1rem;
-        }
+        .tools-section { margin-bottom: 1rem; }
 
         .tools-title {
             font-size: 0.9rem;
@@ -461,11 +423,7 @@
             justify-content: center;
             border-radius: 12px;
         }
-
-        .btn-details:hover {
-            background: #1e3a8a;
-            color: white;
-        }
+        .btn-details:hover { background: #1e3a8a; color: white; }
 
         .admin-actions {
             display: none;
@@ -474,10 +432,7 @@
             padding-top: 1rem;
             border-top: 1px dashed var(--border-color);
         }
-
-        .admin-actions.active {
-            display: flex;
-        }
+        .admin-actions.active { display: flex; }
 
         .btn-edit {
             background: #f59e0b;
@@ -497,7 +452,6 @@
         }
         .btn-delete:hover { background: #dc2626; color: white; }
 
-        /* المودالات */
         .modal-content {
             border-radius: 20px;
             border: none;
@@ -526,9 +480,7 @@
             opacity: 1;
         }
 
-        .modal-body {
-            padding: 1.5rem;
-        }
+        .modal-body { padding: 1.5rem; }
 
         .form-label {
             font-weight: 700;
@@ -550,6 +502,25 @@
             background-color: white;
         }
 
+        .password-wrapper { position: relative; }
+        .password-wrapper .form-control { padding-left: 2.75rem; }
+        .password-toggle {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color 0.2s;
+            z-index: 10;
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .password-toggle:hover { color: var(--primary-blue); }
+
         .btn-submit {
             background: #10b981;
             color: white;
@@ -560,17 +531,9 @@
             justify-content: center;
             margin-top: 1rem;
         }
+        .btn-submit:hover { background: #059669; color: white; }
 
-        .btn-submit:hover {
-            background: #059669;
-            color: white;
-        }
-
-        .detail-tools-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+        .detail-tools-list { list-style: none; padding: 0; margin: 0; }
 
         .detail-tools-list li {
             padding: 0.5rem 0;
@@ -582,9 +545,7 @@
             font-weight: 500;
         }
 
-        .detail-tools-list li i {
-            color: #f59e0b;
-        }
+        .detail-tools-list li i { color: #f59e0b; }
 
         .detail-section-title {
             font-weight: 800;
@@ -602,10 +563,8 @@
             font-size: 1rem;
         }
 
-        /* شبكة الإيموجي */
-        .emoji-picker-container {
-            margin-top: 0.5rem;
-        }
+        .emoji-picker-container { margin-top: 0.5rem; }
+
         .emoji-picker {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -617,6 +576,7 @@
             border-radius: 10px;
             background: #f8fafc;
         }
+
         .emoji-option {
             font-size: 1.6rem;
             text-align: center;
@@ -627,16 +587,9 @@
             user-select: none;
             border: 2px solid transparent;
         }
-        .emoji-option:hover {
-            background: #e2e8f0;
-            transform: scale(1.1);
-        }
-        .emoji-option.selected {
-            background: #bfdbfe;
-            border-color: var(--primary-blue);
-        }
+        .emoji-option:hover { background: #e2e8f0; transform: scale(1.1); }
+        .emoji-option.selected { background: #bfdbfe; border-color: var(--primary-blue); }
 
-        /* الحالات والحركات */
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -650,11 +603,11 @@
         .empty-state i { font-size: 3rem; margin-bottom: 1rem; color: #cbd5e1; }
         .spinner-border { color: var(--primary-blue); width: 3rem; height: 3rem; margin-bottom: 1rem; }
 
-        /* تصميم تبويبات المودال */
         .nav-tabs {
             border-bottom: 2px solid var(--border-color);
             margin-bottom: 1.5rem;
         }
+
         .nav-link {
             color: var(--text-muted);
             font-weight: 700;
@@ -662,16 +615,13 @@
             border-bottom: 3px solid transparent;
             padding: 0.8rem 1.5rem;
         }
-        .nav-link:hover {
-            color: var(--primary-blue);
-        }
+        .nav-link:hover { color: var(--primary-blue); }
         .nav-link.active {
             color: var(--primary-blue);
             border-bottom-color: var(--primary-blue);
             background: transparent;
         }
 
-        /* ================= الصفحة الكاملة لإدارة المعلومات ================= */
         .admin-page {
             display: none;
             background: linear-gradient(135deg, #f0f4ff 0%, #f4f7f9 100%);
@@ -681,10 +631,7 @@
             z-index: 1000;
             padding-bottom: 3rem;
         }
-
-        .admin-page.active {
-            display: block;
-        }
+        .admin-page.active { display: block; }
 
         .admin-header {
             display: flex;
@@ -715,12 +662,8 @@
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
             transition: transform 0.3s ease;
         }
+        .glass-card:hover { transform: translateY(-5px); }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* بطاقات الإحصائيات الملونة */
         .stat-card {
             display: flex;
             align-items: center;
@@ -740,26 +683,10 @@
             box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
         }
 
-        .stat-icon {
-            font-size: 4rem;
-            line-height: 1;
-        }
+        .stat-icon { font-size: 4rem; line-height: 1; }
+        .stat-info h3 { font-size: 3rem; font-weight: 800; margin: 0; line-height: 1.2; }
+        .stat-info p { font-size: 1.2rem; font-weight: 600; margin: 0; opacity: 0.9; }
 
-        .stat-info h3 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .stat-info p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-            opacity: 0.9;
-        }
-
-        /* أشرطة التقدم */
         .progress {
             height: 12px;
             border-radius: 10px;
@@ -768,19 +695,12 @@
             overflow: hidden;
         }
 
-        .progress-bar {
-            border-radius: 10px;
-            transition: width 1s ease-in-out;
-        }
-
+        .progress-bar { border-radius: 10px; transition: width 1s ease-in-out; }
         .bg-purple { background-color: #8b5cf6; }
         .bg-skyblue { background-color: #0ea5e9; }
         .bg-gold { background-color: #f59e0b; }
 
-        .category-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
+        .category-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 
         .category-header {
             display: flex;
@@ -791,11 +711,7 @@
             color: var(--text-dark);
         }
 
-        /* الجداول */
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        .admin-table { width: 100%; border-collapse: collapse; }
         .admin-table th, .admin-table td {
             padding: 0.75rem;
             border-bottom: 1px solid var(--border-color);
@@ -808,7 +724,6 @@
         .admin-table .btn-sm-action { padding: 0.2rem 0.5rem; font-size: 0.8rem; border-radius: 6px; }
         .admin-table .btn-sm-action i { font-size: 0.8rem; }
 
-        /* تنسيقات إضافية لإدارة المستخدمين */
         .user-link {
             cursor: pointer;
             color: var(--primary-blue);
@@ -817,9 +732,7 @@
             text-decoration-color: transparent;
             transition: text-decoration-color 0.3s;
         }
-        .user-link:hover {
-            text-decoration-color: var(--primary-blue);
-        }
+        .user-link:hover { text-decoration-color: var(--primary-blue); }
 
         .user-details-section {
             background: #f8fafc;
@@ -849,12 +762,8 @@
             font-weight: 700;
             transition: all 0.3s;
         }
-        .btn-danger-outline:hover {
-            background: #ef4444;
-            color: white;
-        }
+        .btn-danger-outline:hover { background: #ef4444; color: white; }
 
-        /* تنبيه مخصص */
         .custom-toast {
             position: fixed;
             top: 20px;
@@ -902,7 +811,6 @@
 <body>
 
     <header class="hero-header">
-        <!-- طبقة الإيموجيات المتحركة في الخلفية -->
         <div class="floating-emojis">
             <span class="emoji-1">💡</span>
             <span class="emoji-2">🧠</span>
@@ -921,7 +829,6 @@
             <span class="emoji-15">💡</span>
         </div>
 
-        <!-- أزرار الأعلى -->
         <div class="header-actions-container">
             <div id="userProfileBadge" class="user-badge" onclick="handleProfileClick()">
                 <i class="fas fa-user-circle"></i> <span id="displayUsername">زائر</span>
@@ -931,7 +838,6 @@
             </div>
         </div>
 
-        <!-- العنوان والوصف -->
         <div class="container header-title-container">
             <h1>💡 بنك الأفكار الشبابية</h1>
             <p>أكاديمية قيام - المساحة التفاعلية الملهمة للأنشطة والبرامج</p>
@@ -939,7 +845,6 @@
     </header>
 
     <main class="container" id="mainContent">
-        <!-- شريط البحث والتحكم العلوي -->
         <div class="toolbar-container">
             <div class="toolbar-card">
                 <div class="search-box">
@@ -949,7 +854,7 @@
                 
                 <div class="toolbar-actions">
                     <div id="adminStatus" class="admin-badge">
-                        <i class="fas fa-lock-open"></i> وضع المشرف مفعل
+                        <i class="fas fa-crown"></i> وضع المشرف مفعل
                         <button class="btn btn-sm btn-light ms-2" onclick="logoutAdmin()" style="border-radius: 8px; font-weight: bold;">خروج</button>
                     </div>
                     
@@ -964,7 +869,6 @@
             </div>
         </div>
 
-        <!-- شريط التبويبات -->
         <div class="filter-container">
             <button class="filter-pill refresh-pill" id="refreshBtn" onclick="refreshIdeas(this)">
                 <i class="fas fa-sync-alt"></i> تحديث الأفكار
@@ -977,11 +881,9 @@
             <button class="filter-pill" onclick="filterIdeas('إبداعي', this)">💡 إبداعية</button>
         </div>
 
-        <!-- شبكة الأفكار -->
         <div class="row g-4" id="ideasGrid"></div>
     </main>
 
-    <!-- ================= صفحة إدارة المعلومات الكاملة ================= -->
     <div id="adminPage" class="admin-page">
         <div class="admin-header">
             <button class="btn btn-light shadow-sm px-4 py-2" onclick="closeAdminPage()" style="border-radius: 12px; font-weight: 700; color: var(--text-dark);">
@@ -992,7 +894,6 @@
         </div>
         
         <div class="container py-5">
-            <!-- الإحصائيات -->
             <div class="row g-4 mb-5">
                 <div class="col-md-6">
                     <div class="glass-card stat-card blue-card">
@@ -1014,7 +915,6 @@
                 </div>
             </div>
             
-            <!-- الفئات -->
             <div class="row g-4 mb-5">
                 <div class="col-md-4">
                     <div class="glass-card h-100">
@@ -1057,7 +957,6 @@
                 </div>
             </div>
 
-            <!-- الجداول -->
             <div class="row g-4">
                 <div class="col-lg-5">
                     <div class="glass-card h-100">
@@ -1071,9 +970,7 @@
                                         <th>عدد الأفكار</th>
                                     </tr>
                                 </thead>
-                                <tbody id="adminUsersTableBody">
-                                    <!-- Users will be injected here -->
-                                </tbody>
+                                <tbody id="adminUsersTableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -1092,9 +989,7 @@
                                         <th>الإجراءات</th>
                                     </tr>
                                 </thead>
-                                <tbody id="adminAllIdeasTableBody">
-                                    <!-- Ideas will be injected here -->
-                                </tbody>
+                                <tbody id="adminAllIdeasTableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -1102,8 +997,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ================= MODALS ================= -->
 
     <!-- 1. Auth Modal -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -1130,7 +1023,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">كلمة المرور</label>
-                                    <input type="password" class="form-control" id="loginPassword" required>
+                                    <div class="password-wrapper">
+                                        <input type="password" class="form-control" id="loginPassword" required>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('loginPassword', this)" title="إظهار / إخفاء كلمة المرور">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 mb-3" style="border-radius: 10px; font-weight: bold; padding: 0.8rem;">تسجيل الدخول</button>
                             </form>
@@ -1151,7 +1049,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">كلمة المرور (أرقام فقط)</label>
-                                    <input type="number" class="form-control" id="registerPassword" pattern="[0-9]*" title="يرجى إدخال أرقام فقط" required>
+                                    <div class="password-wrapper">
+                                        <input type="number" class="form-control" id="registerPassword" pattern="[0-9]*" title="يرجى إدخال أرقام فقط" required>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordVisibility('registerPassword', this)" title="إظهار / إخفاء كلمة المرور">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-success w-100" style="border-radius: 10px; font-weight: bold; padding: 0.8rem;">إنشاء حساب</button>
                             </form>
@@ -1265,7 +1168,12 @@
                     <form id="loginForm">
                         <div class="mb-3">
                             <label class="form-label">كلمة المرور</label>
-                            <input type="password" class="form-control" id="adminPassword" required>
+                            <div class="password-wrapper">
+                                <input type="password" class="form-control" id="adminPassword" required>
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility('adminPassword', this)" title="إظهار / إخفاء كلمة المرور">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100" style="border-radius: 10px; font-weight: bold;">دخول</button>
                     </form>
@@ -1329,18 +1237,21 @@
                     
                     <div class="mb-3">
                         <label class="form-label">كلمة المرور الجديدة (اتركها فارغة لعدم التغيير)</label>
-                        <input type="password" class="form-control" id="managePassword" placeholder="أدخل كلمة مرور جديدة (أرقام فقط)">
+                        <div class="password-wrapper">
+                            <input type="password" class="form-control" id="managePassword" placeholder="أدخل كلمة مرور جديدة (أرقام فقط)">
+                            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('managePassword', this)" title="إظهار / إخفاء كلمة المرور">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="user-details-section">
                         <h6 class="fw-bold mb-2">📊 إحصائيات المستخدم</h6>
                         <p class="mb-2">عدد الأفكار: <span id="manageIdeaCount" class="fw-bold">0</span></p>
-                        <div id="manageIdeasList" style="max-height: 150px; overflow-y: auto;">
-                            <!-- Ideas list will be injected here -->
-                        </div>
+                        <div id="manageIdeasList" style="max-height: 150px; overflow-y: auto;"></div>
                     </div>
 
-                    <button class="btn btn-primary w-100 mb-2" onclick="saveUserChanges()" style="border-radius: 10px; font-weight: bold;">
+                    <button class="btn btn-primary w-100 mb-2" onclick="saveUserChanges(event)" style="border-radius: 10px; font-weight: bold;">
                         <i class="fas fa-save"></i> حفظ التغييرات
                     </button>
 
@@ -1360,7 +1271,7 @@
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1bWN5c211dW56dHVwZmd4Y3BwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2NzUzNzAsImV4cCI6MjEwODI1MTM3MH0._UXmqb08HC5H5R6uFsSZ_U3qjKfIimpHeXS6glyOm4Y";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- SafeStorage Implementation (Session Management Only) ---
+        // --- SafeStorage ---
         const SafeStorage = {
             memory: {},
             isLocalStorageAvailable: false,
@@ -1405,9 +1316,14 @@
         let ideas = [];
         let currentFilter = 'all';
         let isAdmin = false;
-        let currentUser = null; // Can be null, "ضيف", or username
+        let currentUser = null;
 
-        // قاعدة بيانات الإيموجي (40 إيموجي)
+        // ========== حالة الخلط العشوائي ==========
+        // shuffleNext = true عند أول تحميل وعند كل ضغط على تبويب "الكل"
+        // shuffledOrder يحفظ ترتيب الخلط الحالي ليبقى ثابتاً أثناء البحث
+        let shuffleNext = true;
+        let shuffledOrder = null;
+
         const emojiData = [
             { emoji: '📚', keywords: ['قراءة', 'كتاب', 'قصة', 'معرفة', 'مطالعة'] },
             { emoji: '🏃', keywords: ['جري', 'سباق', 'سرعة', 'عدو', 'ماراثون'] },
@@ -1457,7 +1373,43 @@
             'إبداعي': { name: 'إبداعية', icon: '💡', class: 'badge-creative', banner: 'banner-creative' }
         };
 
-        // --- LocalStorage Helpers (Session Only) ---
+        // ========== دوال مساعدة للخلط والترتيب ==========
+        // خوارزمية Fisher-Yates لخلط عادل وموثوق
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // ترتيب حسب الأحدث أولاً (created_at DESC)
+        function sortByNewest(arr) {
+            return [...arr].sort((a, b) => {
+                const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+                const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+                return dateB - dateA;
+            });
+        }
+
+        // --- Password Toggle ---
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // --- LocalStorage Helpers ---
         function getCurrentUser() {
             return SafeStorage.getItem('qiyam_currentUser');
         }
@@ -1501,14 +1453,13 @@
 
         function loginAsGuest() {
             currentUser = 'ضيف';
-            setCurrentUser(null); // Clear storage so refresh shows modal again
+            setCurrentUser(null);
             document.getElementById('displayUsername').innerText = 'ضيف';
             const modal = bootstrap.Modal.getInstance(document.getElementById('authModal'));
             if(modal) modal.hide();
             renderIdeas();
         }
 
-        // Prevent closing auth modal unless user picks guest or logs in
         document.getElementById('authModal').addEventListener('hide.bs.modal', function (e) {
             if (!currentUser) {
                 e.preventDefault();
@@ -1516,13 +1467,12 @@
             }
         });
 
-        // --- Register Form (Supabase Integration) ---
+        // --- Register Form ---
         document.getElementById('registerUserForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const username = document.getElementById('registerUsername').value.trim();
             const password = document.getElementById('registerPassword').value.trim();
             
-            // Validation
             const arabicRegex = /^[\u0600-\u06FF\s]+$/;
             const numbersRegex = /^[0-9]+$/;
 
@@ -1541,8 +1491,7 @@
             btn.disabled = true;
             
             try {
-                // Check if user exists
-                const { data: existingUser, error: checkError } = await supabaseClient
+                const { data: existingUser } = await supabaseClient
                     .from('users_app')
                     .select('username')
                     .eq('username', username)
@@ -1553,7 +1502,6 @@
                     return;
                 }
 
-                // Insert new user
                 const { error: insertError } = await supabaseClient
                     .from('users_app')
                     .insert([{ username: username, password: password }]);
@@ -1577,7 +1525,7 @@
             }
         });
 
-        // --- Login Form (Supabase Integration) ---
+        // --- Login Form ---
         document.getElementById('loginUserForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const username = document.getElementById('loginUsername').value.trim();
@@ -1626,7 +1574,7 @@
             bootstrap.Modal.getInstance(document.getElementById('userDashboardModal')).hide();
         }
 
-        // --- Profile Badge Logic ---
+        // --- Profile ---
         function handleProfileClick() {
             if (currentUser === 'ضيف' || !currentUser) {
                 const modal = new bootstrap.Modal(document.getElementById('authModal'));
@@ -1636,7 +1584,6 @@
             }
         }
 
-        // --- User Dashboard Logic ---
         function openUserDashboard() {
             if (currentUser === 'ضيف' || !currentUser) {
                 const modal = new bootstrap.Modal(document.getElementById('authModal'));
@@ -1649,7 +1596,6 @@
         }
 
         function renderUserDashboard() {
-            // 1. My Ideas
             const myIdeasGrid = document.getElementById('myIdeasGrid');
             myIdeasGrid.innerHTML = '';
             const myIdeas = ideas.filter(idea => (idea.username === currentUser || idea.author === currentUser));
@@ -1663,7 +1609,6 @@
                 });
             }
 
-            // 2. Favorites
             const favoritesGrid = document.getElementById('favoritesGrid');
             favoritesGrid.innerHTML = '';
             const userFavs = getFavorites();
@@ -1679,7 +1624,6 @@
             }
         }
 
-        // --- Core Logic & API ---
         function getSmartEmoji(title, description) {
             const text = (title + ' ' + description).toLowerCase();
             let bestEmoji = '💡';
@@ -1751,7 +1695,8 @@
                         tools: toolsArray,
                         duration: item.timeframe || 'غير محدد',
                         username: item.username || item.author || 'مستخدم',
-                        author: item.author || item.username || 'مستخدم'
+                        author: item.author || item.username || 'مستخدم',
+                        created_at: item.created_at || null   // ← ضروري للترتيب حسب الأحدث
                     };
                 });
 
@@ -1819,6 +1764,14 @@
                 </div>
             ` : '';
 
+            // ========== إخفاء اسم "النظام" من الكرت ==========
+            const authorName = idea.username || idea.author || '';
+            const hideAuthor = (authorName === 'النظام' || idea.username === 'النظام' || idea.author === 'النظام');
+
+            const authorHtml = hideAuthor
+                ? '' // لا نعرض أي شيء
+                : `<div class="author-name"><i class="fas fa-user-circle"></i> ${authorName}</div>`;
+
             return `
                 <div class="col-md-6 col-lg-4 fade-in">
                     <div class="idea-card">
@@ -1828,7 +1781,7 @@
                         </div>
                         <div class="card-content">
                             <h3 class="card-title">${cleanTitle}</h3>
-                            <div class="author-name"><i class="fas fa-user-circle"></i> ${idea.username || idea.author}</div>
+                            ${authorHtml}
                             
                             <div class="badges-container">
                                 <span class="custom-badge ${cat.class}">${cat.icon} ${cat.name}</span>
@@ -1837,9 +1790,7 @@
 
                             <div class="tools-section">
                                 <div class="tools-title"><i class="fas fa-tools"></i> الأدوات:</div>
-                                <div class="tools-tags">
-                                    ${toolsHtml}
-                                </div>
+                                <div class="tools-tags">${toolsHtml}</div>
                             </div>
 
                             <p class="card-description">${idea.description}</p>
@@ -1855,11 +1806,17 @@
             `;
         }
 
+        // ============================================================
+        //  🎲 دالة عرض الأفكار مع خلط عشوائي / ترتيب زمني
+        //  - تبويب "الكل": خلط عشوائي (Fisher-Yates)
+        //  - تبويبات مخصصة (رياضي/ثقافي/إبداعي): ترتيب من الأحدث للأقدم
+        // ============================================================
         function renderIdeas() {
             const grid = document.getElementById('ideasGrid');
             grid.innerHTML = '';
 
-            const filteredIdeas = ideas.filter(idea => {
+            // 1. الفلترة حسب التبويب + البحث
+            let filteredIdeas = ideas.filter(idea => {
                 const matchesFilter = currentFilter === 'all' || idea.type === currentFilter;
                 const searchText = document.getElementById('searchInput').value.toLowerCase();
                 const matchesSearch = idea.title.toLowerCase().includes(searchText) || 
@@ -1868,6 +1825,28 @@
                 return matchesFilter && matchesSearch;
             });
 
+            // 2. تطبيق الخلط أو الترتيب
+            if (currentFilter === 'all') {
+                if (shuffleNext) {
+                    // خلط جديد (فتح الصفحة أو ضغط "الكل")
+                    filteredIdeas = shuffleArray(filteredIdeas);
+                    shuffledOrder = filteredIdeas.map(i => i.id);
+                    shuffleNext = false;
+                } else if (shuffledOrder && shuffledOrder.length > 0) {
+                    // الحفاظ على الترتيب العشوائي السابق أثناء البحث
+                    filteredIdeas.sort((a, b) => {
+                        const idxA = shuffledOrder.indexOf(a.id);
+                        const idxB = shuffledOrder.indexOf(b.id);
+                        return (idxA === -1 ? 999999 : idxA) - (idxB === -1 ? 999999 : idxB);
+                    });
+                }
+            } else {
+                // تبويب محدد → ترتيب من الأحدث للأقدم
+                filteredIdeas = sortByNewest(filteredIdeas);
+                shuffledOrder = null; // إعادة تعيين ذاكرة الخلط
+            }
+
+            // 3. حالة عدم وجود نتائج
             if (filteredIdeas.length === 0) {
                 grid.innerHTML = `
                     <div class="empty-state fade-in">
@@ -1879,13 +1858,13 @@
                 return;
             }
 
+            // 4. عرض البطاقات
             filteredIdeas.forEach((idea) => {
                 const realIndex = ideas.indexOf(idea);
                 grid.innerHTML += createCardHtml(idea, realIndex, false);
             });
         }
 
-        // --- Favorites Logic ---
         function toggleFavorite(title, event) {
             event.stopPropagation();
             if (currentUser === 'ضيف' || !currentUser) {
@@ -1909,8 +1888,16 @@
             }
         }
 
+        // ============================================================
+        //  🎯 عند اختيار التبويب: تفعيل الخلط إذا كان "الكل"
+        // ============================================================
         function filterIdeas(category, btnElement) {
             currentFilter = category;
+            if (category === 'all') {
+                // طلب خلط عشوائي جديد
+                shuffleNext = true;
+                shuffledOrder = null;
+            }
             document.querySelectorAll('.filter-pill:not(.refresh-pill)').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
             renderIdeas();
@@ -1918,7 +1905,6 @@
 
         document.getElementById('searchInput').addEventListener('input', renderIdeas);
 
-        // --- Suggest Idea Access Control ---
         function checkAndSuggest() {
             if (currentUser === 'ضيف' || !currentUser) {
                 alert("يرجى تسجيل الدخول");
@@ -1929,7 +1915,6 @@
             }
         }
 
-        // --- Idea Modals & Forms ---
         function viewDetails(index) {
             const idea = ideas[index];
             if (!idea) return;
@@ -1976,7 +1961,6 @@
             const duration = document.getElementById('ideaDuration').value;
 
             if (editIndex !== "") {
-                // Edit mode
                 const idea = ideas[editIndex];
                 const payload = {
                     title: title,
@@ -2024,11 +2008,9 @@
                 return;
             }
 
-            // Insert mode
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري الإرسال...`;
 
-            // بناء البيانات مع جميع الحقول المطلوبة
             const payload = {
                 title: title,
                 category: category,
@@ -2038,7 +2020,7 @@
                 timeframe: duration,
                 emoji: selectedEmoji,
                 username: authorName,
-                author: authorName // إضافة author احتياطياً
+                author: authorName
             };
 
             try {
@@ -2117,7 +2099,6 @@
             document.getElementById('selectedEmoji').value = '💡';
         });
 
-        // --- Admin Access Logic ---
         function openAdminLogin() {
             if (currentUser === 'ضيف' || !currentUser) {
                 alert('يرجى تسجيل الدخول أولاً للوصول لوضع المشرف');
@@ -2206,7 +2187,6 @@
             }
         }
 
-        // --- Admin Dashboard Logic (Full Page) ---
         function openAdminDashboard() {
             if (!isAdmin) {
                 alert('يرجى تفعيل وضع المشرف أولاً.');
@@ -2258,7 +2238,6 @@
             document.getElementById('statSportBar').style.width = `${sportPercent}%`;
             document.getElementById('statCreativeBar').style.width = `${creativePercent}%`;
 
-            // Users Table
             const usersTableBody = document.getElementById('adminUsersTableBody');
             usersTableBody.innerHTML = '';
             if (usersList.length === 0) {
@@ -2280,7 +2259,6 @@
                 });
             }
 
-            // All Ideas Table
             const allIdeasTableBody = document.getElementById('adminAllIdeasTableBody');
             allIdeasTableBody.innerHTML = '';
             if (ideas.length === 0) {
@@ -2288,6 +2266,7 @@
             } else {
                 ideas.forEach((idea) => {
                     const realIndex = ideas.indexOf(idea);
+                    // في لوحة الأدمن نعرض اسم المؤلف حتى لو كان "النظام" (المشرف يحتاج هذه المعلومة)
                     allIdeasTableBody.innerHTML += `
                         <tr>
                             <td class="emoji-cell">${idea.emoji}</td>
@@ -2340,7 +2319,6 @@
             }
         }
 
-        // --- User Management Modal Logic ---
         async function openUserManagement(username) {
             document.getElementById('manageOriginalUsername').value = username;
             document.getElementById('manageUsername').value = username;
@@ -2365,7 +2343,7 @@
             modal.show();
         }
 
-        async function saveUserChanges() {
+        async function saveUserChanges(event) {
             const oldUsername = document.getElementById('manageOriginalUsername').value;
             const newUsername = document.getElementById('manageUsername').value.trim();
             const newPassword = document.getElementById('managePassword').value.trim();
@@ -2381,7 +2359,7 @@
                 return;
             }
 
-            const btn = event.target;
+            const btn = event ? event.currentTarget : document.querySelector('#userManagementModal .btn-primary');
             const originalBtnText = btn.innerHTML;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> جاري الحفظ...';
             btn.disabled = true;
@@ -2460,7 +2438,6 @@
             btn.disabled = true;
 
             try {
-                // 1. حذف جميع أفكار المستخدم من جدول ideas باستخدام الشرط or
                 console.log("Deleting ideas for username:", username);
                 const { error: ideasError } = await supabaseClient
                     .from('ideas')
@@ -2472,7 +2449,6 @@
                     throw ideasError;
                 }
 
-                // 2. حذف الحساب من جدول users_app
                 console.log("Deleting user account:", username);
                 const { error: userError } = await supabaseClient
                     .from('users_app')
@@ -2484,15 +2460,12 @@
                     throw userError;
                 }
 
-                // 3. تحديث المصفوفة المحلية
                 ideas = ideas.filter(idea => (idea.username !== username && idea.author !== username));
 
-                // 4. إذا كان المستخدم المحذوف هو نفسه المسجل حالياً، تسجيل الخروج
                 if (currentUser === username) {
                     logoutUser();
                 }
 
-                // 5. تحديث الواجهة
                 await fetchIdeas(false);
                 renderAdminPage();
                 
@@ -2517,63 +2490,101 @@
             modal.show();
         }
 
-        // --- Bulk Ideas Auto-Insert via URL Parameter ---
+        // ============================================================
+        //  🚀 Bulk Ideas Auto-Insert via URL Parameter (v2 - Compact)
+        // ============================================================
         async function processBulkDataFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             const bulkData = urlParams.get('bulk_data');
 
-            if (bulkData) {
-                try {
-                    const ideasData = JSON.parse(decodeURIComponent(bulkData));
-                    
-                    if (Array.isArray(ideasData) && ideasData.length > 0) {
-                        const processedData = ideasData.map(idea => ({
-                            title: idea.title || 'بدون عنوان',
-                            category: idea.category || idea.type || 'إبداعي',
-                            description: idea.description || 'لا يوجد وصف.',
-                            requirements: idea.requirements || idea.tools || '',
-                            tools: idea.tools || idea.requirements || '',
-                            timeframe: idea.timeframe || idea.duration || 'غير محدد',
-                            emoji: idea.emoji || '💡',
-                            username: 'النظام',
-                            author: 'النظام'
-                        }));
+            if (!bulkData) return;
 
-                        const { data, error } = await supabaseClient
-                            .from('ideas')
-                            .insert(processedData);
+            try {
+                const ideasData = JSON.parse(decodeURIComponent(bulkData));
 
-                        if (error) {
-                            console.error("Error inserting bulk ideas:", error);
-                            alert('حدث خطأ أثناء إضافة الأفكار التلقائية من الرابط.');
-                        } else {
-                            window.history.replaceState({}, document.title, window.location.pathname);
-
-                            const toastDiv = document.createElement('div');
-                            toastDiv.className = 'custom-toast';
-                            toastDiv.innerHTML = `<i class="fas fa-check-circle"></i> 🎉 تمت إضافة ${processedData.length} أفكار جديدة بنجاح إلى بنك الأفكار من النظام!`;
-                            document.body.appendChild(toastDiv);
-
-                            setTimeout(() => {
-                                toastDiv.style.display = 'none';
-                            }, 5000);
-
-                            await fetchIdeas(false);
-                            
-                            if (document.getElementById('adminPage').classList.contains('active')) {
-                                renderAdminPage();
-                            }
-                        }
-                    }
-                } catch (e) {
-                    console.error("Error parsing bulk_data from URL:", e);
+                if (!Array.isArray(ideasData) || ideasData.length === 0) {
+                    console.warn("bulk_data is not a non-empty array. Skipping.");
+                    return;
                 }
+
+                const normalizeCategory = (cat) => {
+                    if (!cat) return 'إبداعي';
+                    const c = String(cat).trim();
+                    if (c.includes('رياض')) return 'رياضي';
+                    if (c.includes('ثقاف')) return 'ثقافي';
+                    if (c.includes('إبداع') || c.includes('ابداع')) return 'إبداعي';
+                    const lower = c.toLowerCase();
+                    if (lower === 's' || lower === 'sp' || lower === 'sport' || lower === 'sports') return 'رياضي';
+                    if (lower === 'cu' || lower === 'culture' || lower === 'cultural') return 'ثقافي';
+                    if (lower === 'cr' || lower === 'creative' || lower === 'creativity') return 'إبداعي';
+                    return 'إبداعي';
+                };
+
+                const pick = (...vals) => {
+                    for (const v of vals) {
+                        if (v !== undefined && v !== null && String(v).trim() !== '') return v;
+                    }
+                    return '';
+                };
+
+                const processedData = ideasData.map(rawIdea => {
+                    const title       = pick(rawIdea.title, rawIdea.t)                 || 'بدون عنوان';
+                    const category    = normalizeCategory(pick(rawIdea.category, rawIdea.c, rawIdea.type));
+                    const description = pick(rawIdea.description, rawIdea.d)            || 'لا يوجد وصف.';
+                    const requirements = pick(rawIdea.requirements, rawIdea.r, rawIdea.tools, rawIdea.tl) || '';
+                    const tools       = pick(rawIdea.tools, rawIdea.tl, rawIdea.requirements, rawIdea.r) || '';
+                    const timeframe   = pick(rawIdea.timeframe, rawIdea.tf, rawIdea.duration) || 'غير محدد';
+                    const emoji       = pick(rawIdea.emoji, rawIdea.e)                  || '💡';
+
+                    return {
+                        title:        title,
+                        category:     category,
+                        description:  description,
+                        requirements: requirements,
+                        tools:        tools,
+                        timeframe:    timeframe,
+                        emoji:        emoji,
+                        username:     'النظام',
+                        author:       'النظام'
+                    };
+                });
+
+                const { data, error } = await supabaseClient
+                    .from('ideas')
+                    .insert(processedData);
+
+                if (error) {
+                    console.error("Error inserting bulk ideas:", error);
+                    alert('حدث خطأ أثناء إضافة الأفكار التلقائية من الرابط: ' + (error.message || ''));
+                    return;
+                }
+
+                window.history.replaceState({}, document.title, window.location.pathname);
+
+                const toastDiv = document.createElement('div');
+                toastDiv.className = 'custom-toast';
+                toastDiv.innerHTML = `<i class="fas fa-check-circle"></i> 🎉 تمت إضافة ${processedData.length} أفكار جديدة بنجاح إلى بنك الأفكار من النظام!`;
+                document.body.appendChild(toastDiv);
+
+                setTimeout(() => {
+                    toastDiv.style.opacity = '0';
+                    toastDiv.style.transition = 'opacity 0.4s';
+                    setTimeout(() => toastDiv.remove(), 400);
+                }, 5000);
+
+                await fetchIdeas(false);
+                if (document.getElementById('adminPage').classList.contains('active')) {
+                    renderAdminPage();
+                }
+
+            } catch (e) {
+                console.error("Error parsing bulk_data from URL:", e);
             }
         }
 
-        // التشغيل الأولي
         window.addEventListener('DOMContentLoaded', async () => {
             renderEmojiPicker();
+            // shuffleNext = true مبدئياً → أول عرض سيكون عشوائياً
             await processBulkDataFromUrl();
             await fetchIdeas();
             checkAuth();
