@@ -1318,9 +1318,6 @@
         let isAdmin = false;
         let currentUser = null;
 
-        // ========== حالة الخلط العشوائي ==========
-        // shuffleNext = true عند أول تحميل وعند كل ضغط على تبويب "الكل"
-        // shuffledOrder يحفظ ترتيب الخلط الحالي ليبقى ثابتاً أثناء البحث
         let shuffleNext = true;
         let shuffledOrder = null;
 
@@ -1373,8 +1370,39 @@
             'إبداعي': { name: 'إبداعية', icon: '💡', class: 'badge-creative', banner: 'banner-creative' }
         };
 
-        // ========== دوال مساعدة للخلط والترتيب ==========
-        // خوارزمية Fisher-Yates لخلط عادل وموثوق
+        // ============================================================
+        //  🧹 تطبيع أسماء الفئات (Category Normalization)
+        //  يقبل: رياضي / رياضية / رياضه / رياضه / Sport / Sports
+        //  يقبل: ثقافي / ثقافية / ثقافيه / Culture / Cultural
+        //  يقبل: إبداعي / إبداعية / ابداعيه / ابتكاري / Creative
+        //  يُرجع دائماً: 'رياضي' | 'ثقافي' | 'إبداعي' | null
+        // ============================================================
+        function normalizeCategory(rawCat) {
+            if (rawCat === null || rawCat === undefined) return null;
+            let c = String(rawCat).trim().toLowerCase();
+            if (!c) return null;
+
+            // إزالة التشكيل العربي
+            c = c.replace(/[\u064B-\u065F\u0670\u0640]/g, '');
+            // توحيد الألف (أ إ آ → ا)
+            c = c.replace(/[أإآ]/g, 'ا');
+            // توحيد التاء المربوطة والهاء
+            c = c.replace(/ة/g, 'ه');
+            // توحيد الياء
+            c = c.replace(/ى/g, 'ي');
+            // إزالة الرموز الزائدة
+            c = c.replace(/[^\u0600-\u06FFa-z]/g, '');
+
+            if (c.includes('رياض') || c.includes('sport')) return 'رياضي';
+            if (c.includes('ثقاف') || c.includes('culture')) return 'ثقافي';
+            if (c.includes('ابداع') || c.includes('ابتكار') || c.includes('create') || c.includes('creativ') || c.includes('idea')) return 'إبداعي';
+
+            return null;
+        }
+
+        // ============================================================
+        //  🎲 خلط عشوائي (Fisher-Yates)
+        // ============================================================
         function shuffleArray(arr) {
             const a = [...arr];
             for (let i = a.length - 1; i > 0; i--) {
@@ -1384,12 +1412,18 @@
             return a;
         }
 
-        // ترتيب حسب الأحدث أولاً (created_at DESC)
+        // ============================================================
+        //  📅 ترتيب من الأحدث للأقدم (created_at DESC، ثم id DESC)
+        // ============================================================
         function sortByNewest(arr) {
             return [...arr].sort((a, b) => {
                 const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
                 const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
-                return dateB - dateA;
+                if (dateB !== dateA) return dateB - dateA;
+
+                const idA = (typeof a.id === 'number') ? a.id : (parseInt(a.id, 10) || 0);
+                const idB = (typeof b.id === 'number') ? b.id : (parseInt(b.id, 10) || 0);
+                return idB - idA;
             });
         }
 
@@ -1686,17 +1720,21 @@
                     let toolsVal = item.tools || item.requirements || '';
                     let toolsArray = Array.isArray(toolsVal) ? toolsVal : (typeof toolsVal === 'string' ? toolsVal.split('\n').map(t => t.trim()).filter(t => t !== '') : []);
 
+                    // ✅ تطبيع الفئة مباشرة عند الجلب — يضمن دائماً القيمة القانونية
+                    const normalizedType = normalizeCategory(item.category) || 'إبداعي';
+
                     return {
                         id: item.id,
                         title: item.title || 'بدون عنوان',
                         emoji: item.emoji || '💡',
-                        type: (item.category || 'إبداعي').trim(),
+                        type: normalizedType,
+                        rawCategory: item.category || '',
                         description: item.description || 'لا يوجد وصف.',
                         tools: toolsArray,
                         duration: item.timeframe || 'غير محدد',
                         username: item.username || item.author || 'مستخدم',
                         author: item.author || item.username || 'مستخدم',
-                        created_at: item.created_at || null   // ← ضروري للترتيب حسب الأحدث
+                        created_at: item.created_at || null
                     };
                 });
 
@@ -1735,11 +1773,8 @@
         }
 
         function createCardHtml(idea, index, isUserDashboard = false) {
-            let catKey = 'إبداعي';
-            if (idea.type.includes('رياض')) catKey = 'رياضي';
-            else if (idea.type.includes('ثقاف')) catKey = 'ثقافي';
-            else if (idea.type.includes('إبداع') || idea.type.includes('ابداع')) catKey = 'إبداعي';
-            
+            // ✅ استخدام التطبيع هنا أيضاً
+            const catKey = normalizeCategory(idea.type) || 'إبداعي';
             const cat = categoryMap[catKey];
             
             let displayEmoji = idea.emoji;
@@ -1764,12 +1799,12 @@
                 </div>
             ` : '';
 
-            // ========== إخفاء اسم "النظام" من الكرت ==========
+            // إخفاء اسم "النظام"
             const authorName = idea.username || idea.author || '';
             const hideAuthor = (authorName === 'النظام' || idea.username === 'النظام' || idea.author === 'النظام');
 
             const authorHtml = hideAuthor
-                ? '' // لا نعرض أي شيء
+                ? ''
                 : `<div class="author-name"><i class="fas fa-user-circle"></i> ${authorName}</div>`;
 
             return `
@@ -1807,33 +1842,45 @@
         }
 
         // ============================================================
-        //  🎲 دالة عرض الأفكار مع خلط عشوائي / ترتيب زمني
-        //  - تبويب "الكل": خلط عشوائي (Fisher-Yates)
-        //  - تبويبات مخصصة (رياضي/ثقافي/إبداعي): ترتيب من الأحدث للأقدم
+        //  🎯 دالة العرض الرئيسية
+        //  - "الكل": خلط عشوائي
+        //  - تبويب محدد: ترتيب من الأحدث للأقدم + فلترة مرنة
         // ============================================================
         function renderIdeas() {
             const grid = document.getElementById('ideasGrid');
             grid.innerHTML = '';
 
-            // 1. الفلترة حسب التبويب + البحث
+            const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+            const normalizedFilter = (currentFilter === 'all') ? 'all' : normalizeCategory(currentFilter);
+
+            // 1. الفلترة
             let filteredIdeas = ideas.filter(idea => {
-                const matchesFilter = currentFilter === 'all' || idea.type === currentFilter;
-                const searchText = document.getElementById('searchInput').value.toLowerCase();
-                const matchesSearch = idea.title.toLowerCase().includes(searchText) || 
-                                      idea.description.toLowerCase().includes(searchText) || 
-                                      idea.tools.some(t => t.toLowerCase().includes(searchText));
+                // ✅ فلترة مرنة: نُطبّع طرفي المقارنة
+                let matchesFilter;
+                if (normalizedFilter === 'all') {
+                    matchesFilter = true;
+                } else {
+                    const ideaCat = normalizeCategory(idea.type) || normalizeCategory(idea.rawCategory);
+                    matchesFilter = (ideaCat === normalizedFilter);
+                }
+
+                const matchesSearch = !searchText || (
+                    idea.title.toLowerCase().includes(searchText) ||
+                    idea.description.toLowerCase().includes(searchText) ||
+                    idea.tools.some(t => t.toLowerCase().includes(searchText))
+                );
+
                 return matchesFilter && matchesSearch;
             });
 
-            // 2. تطبيق الخلط أو الترتيب
-            if (currentFilter === 'all') {
+            // 2. الترتيب / الخلط
+            if (normalizedFilter === 'all') {
                 if (shuffleNext) {
-                    // خلط جديد (فتح الصفحة أو ضغط "الكل")
                     filteredIdeas = shuffleArray(filteredIdeas);
                     shuffledOrder = filteredIdeas.map(i => i.id);
                     shuffleNext = false;
                 } else if (shuffledOrder && shuffledOrder.length > 0) {
-                    // الحفاظ على الترتيب العشوائي السابق أثناء البحث
+                    // الحفاظ على ترتيب الخلط السابق أثناء البحث
                     filteredIdeas.sort((a, b) => {
                         const idxA = shuffledOrder.indexOf(a.id);
                         const idxB = shuffledOrder.indexOf(b.id);
@@ -1841,9 +1888,8 @@
                     });
                 }
             } else {
-                // تبويب محدد → ترتيب من الأحدث للأقدم
                 filteredIdeas = sortByNewest(filteredIdeas);
-                shuffledOrder = null; // إعادة تعيين ذاكرة الخلط
+                shuffledOrder = null;
             }
 
             // 3. حالة عدم وجود نتائج
@@ -1858,7 +1904,7 @@
                 return;
             }
 
-            // 4. عرض البطاقات
+            // 4. العرض
             filteredIdeas.forEach((idea) => {
                 const realIndex = ideas.indexOf(idea);
                 grid.innerHTML += createCardHtml(idea, realIndex, false);
@@ -1888,13 +1934,9 @@
             }
         }
 
-        // ============================================================
-        //  🎯 عند اختيار التبويب: تفعيل الخلط إذا كان "الكل"
-        // ============================================================
         function filterIdeas(category, btnElement) {
             currentFilter = category;
             if (category === 'all') {
-                // طلب خلط عشوائي جديد
                 shuffleNext = true;
                 shuffledOrder = null;
             }
@@ -1919,11 +1961,7 @@
             const idea = ideas[index];
             if (!idea) return;
 
-            let catKey = 'إبداعي';
-            if (idea.type.includes('رياض')) catKey = 'رياضي';
-            else if (idea.type.includes('ثقاف')) catKey = 'ثقافي';
-            else if (idea.type.includes('إبداع') || idea.type.includes('ابداع')) catKey = 'إبداعي';
-            
+            const catKey = normalizeCategory(idea.type) || 'إبداعي';
             const cat = categoryMap[catKey];
 
             document.getElementById('detailTitle').innerText = idea.title;
@@ -1976,7 +2014,7 @@
                     ...ideas[editIndex], 
                     title: title, 
                     emoji: selectedEmoji,
-                    type: category, 
+                    type: normalizeCategory(category) || 'إبداعي',
                     tools: tools.split('\n').filter(t=>t.trim()!==''), 
                     description: description, 
                     duration: duration 
@@ -2024,16 +2062,11 @@
             };
 
             try {
-                console.log("Submitting idea with payload:", payload);
-                
                 const { data, error } = await supabaseClient
                     .from('ideas')
                     .insert([payload]);
 
-                if (error) {
-                    console.error("Supabase insert error:", error);
-                    throw error;
-                }
+                if (error) throw error;
 
                 this.reset();
                 const modalEl = document.getElementById('suggestModal');
@@ -2069,7 +2102,8 @@
             document.getElementById('modalTitleText').innerText = "✏️ تعديل الفكرة";
             document.getElementById('btnText').innerText = "حفظ التعديلات";
             document.getElementById('ideaTitle').value = idea.title;
-            document.getElementById('ideaCategory').value = idea.type;
+            // ✅ نضع القيمة المطبَّعة في القائمة المنسدلة لضمان التطابق
+            document.getElementById('ideaCategory').value = normalizeCategory(idea.type) || 'إبداعي';
             document.getElementById('ideaTools').value = idea.tools.join('\n');
             document.getElementById('ideaDescription').value = idea.description;
             document.getElementById('ideaDuration').value = idea.duration;
@@ -2214,10 +2248,11 @@
 
             const totalUsers = usersList.length;
             const totalIdeas = ideas.length;
-            
-            const sportIdeas = ideas.filter(i => i.type.includes('رياض')).length;
-            const cultureIdeas = ideas.filter(i => i.type.includes('ثقاف')).length;
-            const creativeIdeas = ideas.filter(i => i.type.includes('إبداع') || i.type.includes('ابداع')).length;
+
+            // ✅ استخدام التطبيع في الإحصاء
+            const sportIdeas = ideas.filter(i => normalizeCategory(i.type) === 'رياضي').length;
+            const cultureIdeas = ideas.filter(i => normalizeCategory(i.type) === 'ثقافي').length;
+            const creativeIdeas = ideas.filter(i => normalizeCategory(i.type) === 'إبداعي').length;
 
             document.getElementById('statTotalUsers').innerText = totalUsers;
             document.getElementById('statTotalIdeas').innerText = totalIdeas;
@@ -2266,12 +2301,12 @@
             } else {
                 ideas.forEach((idea) => {
                     const realIndex = ideas.indexOf(idea);
-                    // في لوحة الأدمن نعرض اسم المؤلف حتى لو كان "النظام" (المشرف يحتاج هذه المعلومة)
+                    const catKey = normalizeCategory(idea.type) || 'إبداعي';
                     allIdeasTableBody.innerHTML += `
                         <tr>
                             <td class="emoji-cell">${idea.emoji}</td>
                             <td>${idea.title}</td>
-                            <td>${idea.type}</td>
+                            <td>${categoryMap[catKey].name}</td>
                             <td>${idea.username || idea.author}</td>
                             <td class="actions-cell">
                                 <button class="btn btn-warning btn-sm-action me-1" onclick="editIdeaFromAdmin(${realIndex})" title="تعديل">
@@ -2334,7 +2369,7 @@
                 ideasListDiv.innerHTML = userIdeas.map(idea => `
                     <div class="user-idea-item">
                         <span>${idea.emoji} ${idea.title}</span>
-                        <span class="badge bg-secondary">${idea.type}</span>
+                        <span class="badge bg-secondary">${categoryMap[normalizeCategory(idea.type) || 'إبداعي'].name}</span>
                     </div>
                 `).join('');
             }
@@ -2438,27 +2473,19 @@
             btn.disabled = true;
 
             try {
-                console.log("Deleting ideas for username:", username);
                 const { error: ideasError } = await supabaseClient
                     .from('ideas')
                     .delete()
                     .or(`username.eq.${username},author.eq.${username}`);
                     
-                if (ideasError) {
-                    console.error("Error deleting user ideas:", ideasError);
-                    throw ideasError;
-                }
+                if (ideasError) throw ideasError;
 
-                console.log("Deleting user account:", username);
                 const { error: userError } = await supabaseClient
                     .from('users_app')
                     .delete()
                     .eq('username', username);
                     
-                if (userError) {
-                    console.error("Error deleting user account:", userError);
-                    throw userError;
-                }
+                if (userError) throw userError;
 
                 ideas = ideas.filter(idea => (idea.username !== username && idea.author !== username));
 
@@ -2491,7 +2518,8 @@
         }
 
         // ============================================================
-        //  🚀 Bulk Ideas Auto-Insert via URL Parameter (v2 - Compact)
+        //  🚀 Bulk Ideas Auto-Insert via URL Parameter
+        //  يدعم: مفاتيح كاملة + مختصرة + فئات بأي صيغة
         // ============================================================
         async function processBulkDataFromUrl() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -2507,19 +2535,6 @@
                     return;
                 }
 
-                const normalizeCategory = (cat) => {
-                    if (!cat) return 'إبداعي';
-                    const c = String(cat).trim();
-                    if (c.includes('رياض')) return 'رياضي';
-                    if (c.includes('ثقاف')) return 'ثقافي';
-                    if (c.includes('إبداع') || c.includes('ابداع')) return 'إبداعي';
-                    const lower = c.toLowerCase();
-                    if (lower === 's' || lower === 'sp' || lower === 'sport' || lower === 'sports') return 'رياضي';
-                    if (lower === 'cu' || lower === 'culture' || lower === 'cultural') return 'ثقافي';
-                    if (lower === 'cr' || lower === 'creative' || lower === 'creativity') return 'إبداعي';
-                    return 'إبداعي';
-                };
-
                 const pick = (...vals) => {
                     for (const v of vals) {
                         if (v !== undefined && v !== null && String(v).trim() !== '') return v;
@@ -2529,7 +2544,7 @@
 
                 const processedData = ideasData.map(rawIdea => {
                     const title       = pick(rawIdea.title, rawIdea.t)                 || 'بدون عنوان';
-                    const category    = normalizeCategory(pick(rawIdea.category, rawIdea.c, rawIdea.type));
+                    const category    = normalizeCategory(pick(rawIdea.category, rawIdea.c, rawIdea.type)) || 'إبداعي';
                     const description = pick(rawIdea.description, rawIdea.d)            || 'لا يوجد وصف.';
                     const requirements = pick(rawIdea.requirements, rawIdea.r, rawIdea.tools, rawIdea.tl) || '';
                     const tools       = pick(rawIdea.tools, rawIdea.tl, rawIdea.requirements, rawIdea.r) || '';
@@ -2584,7 +2599,6 @@
 
         window.addEventListener('DOMContentLoaded', async () => {
             renderEmojiPicker();
-            // shuffleNext = true مبدئياً → أول عرض سيكون عشوائياً
             await processBulkDataFromUrl();
             await fetchIdeas();
             checkAuth();
